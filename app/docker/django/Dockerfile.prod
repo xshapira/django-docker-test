@@ -4,7 +4,7 @@ ARG APP_HOME=/usr/src/app
 WORKDIR ${APP_HOME}
 
 COPY ./app/package.json ${APP_HOME}
-RUN npm install && npm cache clean --force \
+RUN npm ci && npm cache clean --force \
     && npm install -g gulp \
     && npm install gulp
 COPY . ${APP_HOME}

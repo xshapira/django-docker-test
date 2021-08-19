@@ -3,7 +3,7 @@ Django project template that uses Tailwind CSS, Gulp, and Docker.
 
 ### Useful commands
 ```docker
-cd app && npm install && npm cache clean --force
+cd app && npm ci && npm cache clean --force
 
 docker-compose up --build
 docker-compose exec django ./manage.py createsuperuser
