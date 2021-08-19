@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+| Forbidden (403)
+{% endblock title %}
+
+{% block content %}
+<section class="relative">
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- 403 content -->
+        <h1>Forbidden (403)</h1>
+        <p>{% if exception %}
+          {{ exception }}
+          {% else %}You're not allowed to access this page.{% endif %}
+        </p>
+        <div class="mt-8">
+          <a class="btn text-white bg-blue-600 hover:bg-blue-700" href="{% url 'home' %}">Go back home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p>{% if exception %}
+  {{ exception }}
+  {% else %}
+  This is not the page you were looking for.
+  {% endif %}</p>
+{% endblock content %}

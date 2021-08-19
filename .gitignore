@@ -1,0 +1,10 @@
+!.env/**/
+!.env/.production/.env.example
+.env.db
+.env.dev
+.env/**/*.env
+**/*.env.db
+**/*.env.dev
+docker-compose.ssl.yml
+.vscode
+.DS_Store

@@ -1,0 +1,29 @@
+[[source]]
+name="pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+django-debug-toolbar = "*"
+flake8 = "*"
+black = "*"
+
+[packages]
+Django = "==3.2.3"
+gunicorn = "==20.0.4"
+pillow = "*"
+django-allauth = "*"
+django-crispy-forms = "*"
+crispy-tailwind = "*"
+django-feather = "*"
+argon2-cffi = "*"
+django-redis = "*"
+redis = "*"
+django-storages = "*"
+Collectfast = "*"
+python-decouple = "*"
+django-environ = "*"
+
+
+[requires]
+python_version = "3.8"

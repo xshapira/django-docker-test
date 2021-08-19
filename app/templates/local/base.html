@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>{% block title %} Webapp {% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Awesome Project!">
+    <meta name="author" content="webapp">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    {% block javascript %}
+    <script defer src="{% static 'js/index.js' %}" type="module"></script>
+    {% endblock javascript %}
+  </head>
+
+  <body class="font-sans antialiased bg-white text-gray-900 tracking-tight">
+
+    <!-- Page wrapper -->
+    <div class="flex flex-col min-h-screen overflow-hidden">
+
+      <!-- Site header -->
+      {% include "partials/header.html" %}
+
+      <!-- Page content -->
+      <main class="flex-grow">
+        {% block content %}
+
+        {% endblock content %}
+      </main>
+
+      {% include "partials/footer.html" %}
+    </div>
+
+    {% block inline_javascript %}
+    {# Script tags with only code, no src (defer by default) #}
+    {% endblock inline_javascript %}
+  </body>
+</html>

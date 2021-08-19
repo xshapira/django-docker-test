@@ -1,0 +1,92 @@
+<header class="fixed w-full z-30" x-data="{ top: true }" @scroll.window="top = window.pageYOffset > 10 ? false : true" :class="{ 'bg-white blur shadow-lg' : !top }">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+    <nav class="relative h-20 md:h-20 flex justify-between items-center">
+      <a class="block" href="{% url 'home' %}" aria-label="simple">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient cx="21.152%" cy="86.063%" fx="21.152%" fy="86.063%" r="79.941%" id="header-logo">
+              <stop stop-color="#4FD1C5" offset="0%" />
+              <stop stop-color="#81E6D9" offset="25.871%" />
+              <stop stop-color="#338CF5" offset="100%" />
+            </radialGradient>
+          </defs>
+          <rect width="32" height="32" rx="16" fill="url(#header-logo)" fill-rule="nonzero" />
+        </svg>
+      </a>
+
+      <div class="lg:hidden">
+        <button class="navbar-burger flex items-center text-blue-600 p-3">
+          <svg class="block h-5 w-5 fill-gray" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <title>Mobile menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="hidden lg:flex lg:items-center lg:w-auto items-center justify-between lg:ml-auto lg:mr-8 lg:space-x-8">
+        <li>
+          <a class="text-gray-850 border-b-2 border-transparent hover:border-gray-850 font-semibold" href="{% url 'about' %}">About</a>
+        </li>
+        <li>
+          <a class="text-gray-850 border-b-2 border-transparent hover:border-gray-850 font-semibold" href="pricing.html">Pricing</a>
+        </li>
+        <li>
+          <a class="text-gray-850 border-b-2 border-transparent hover:border-gray-850 font-semibold" href="blog.html">Blog</a>
+        </li>
+      </ul>
+      <a class="hidden lg:inline-block lg:justify-end lg:mr-3 py-2.5 px-6 bg-gray-150 hover:bg-gray-200 text-gray-850 font-semibold rounded-lg transition duration-200" href="login.html">Login</a>
+      <a class="hidden lg:inline-block py-2.5 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200" href="signup.html">Sign up</a>
+    </nav>
+
+    <!-- Mobile -->
+    <div class="navbar-menu relative z-50 hidden">
+      <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+      <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+        <div class="flex items-center mb-8">
+          <a class="mr-auto ml-2" href="{% url 'home' %}" aria-label="simple">
+            <svg class="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient cx="21.152%" cy="86.063%" fx="21.152%" fy="86.063%" r="79.941%" id="header-logo">
+                  <stop stop-color="#4FD1C5" offset="0%" />
+                  <stop stop-color="#81E6D9" offset="25.871%" />
+                  <stop stop-color="#338CF5" offset="100%" />
+                </radialGradient>
+              </defs>
+              <rect width="32" height="32" rx="16" fill="url(#header-logo)" fill-rule="nonzero" />
+            </svg>
+          </a>
+          <button class="navbar-close">
+            <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div>
+          <ul>
+            <li class="mb-1">
+              <a class="block p-3 font-semibold text-gray-850 hover:bg-blue-50 hover:text-blue-600 rounded-lg" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="mb-1">
+              <a class="block p-3 font-semibold text-gray-850 hover:bg-blue-50 hover:text-blue-600 rounded-lg" href="pricing.html">Pricing</a>
+            </li>
+            <li class="mb-1">
+              <a class="block p-3 font-semibold text-gray-850 hover:bg-blue-50 hover:text-blue-600 rounded-lg" href="blog.html">Blog</a>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-auto">
+          <div class="pt-6">
+            <a class="block py-2 px-6 mb-3 leading-loose text-center font-semibold bg-gray-150 hover:bg-gray-200 rounded-lg" href="login.html">Login</a>
+            <a class="block py-2 px-6 mb-2 leading-loose text-center text-white font-semibold bg-blue-600 hover:bg-blue-700 rounded-lg" href="signup.html">Sign up</a>
+          </div>
+          <p class="my-4 text-sm text-center text-gray-600">
+            <span>© 2021 Simple,Inc.</span>
+          </p>
+        </div>
+      </nav>
+    </div>
+
+  </div>
+
+</header>

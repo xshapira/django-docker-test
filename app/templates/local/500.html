@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+| Server Error
+{% endblock title %}
+
+{% block content %}
+<section class="relative">
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="pt-32 pb-12 md:pt-40 md:pb-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- 500 content -->
+        <h1>Ooops!!! 500</h1>
+
+        <h3>Looks like something went wrong!</h3>
+
+        <p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
+        <div class="mt-8">
+          <a class="btn text-white bg-blue-600 hover:bg-blue-700" href="{% url 'home' %}">Go back home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p>{% if exception %}
+  {{ exception }}
+  {% else %}
+  This is not the page you were looking for.
+  {% endif %}</p>
+{% endblock content %}
