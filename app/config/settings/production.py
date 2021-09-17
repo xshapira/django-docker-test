@@ -118,11 +118,9 @@ TEMPLATES[-1]["DIRS"] = [PROD_TEMPLATES_DIR]  # noqa F405
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = config(
-    "DJANGO_DEFAULT_FROM_EMAIL", default="Admin <noreply@example.com>"
-)
+EMAIL_FROM = config("EMAIL_FROM", default="Admin <noreply@example.com>")
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
-SERVER_EMAIL = config("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
+SERVER_EMAIL = config("DJANGO_SERVER_EMAIL", default=EMAIL_FROM)
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = config("DJANGO_EMAIL_SUBJECT_PREFIX", default="[admin]",)
 
@@ -142,12 +140,6 @@ INSTALLED_APPS += ["anymail"]  # noqa F405
 # https://anymail.readthedocs.io/en/stable/esps/amazon_ses/
 EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
 ANYMAIL = {}
-
-
-# Collectfast
-# ------------------------------------------------------------------------------
-# https://github.com/antonagestam/collectfast#installation
-INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
 
 
 # LOGGING
