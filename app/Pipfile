@@ -9,8 +9,8 @@ flake8 = "*"
 black = "*"
 
 [packages]
-Django = "*"
-gunicorn = "*"
+Django = "==3.2.3"
+gunicorn = "==20.0.4"
 pillow = "*"
 django-allauth = "*"
 django-feather = "*"
