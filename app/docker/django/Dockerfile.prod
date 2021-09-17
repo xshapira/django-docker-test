@@ -1,14 +1,27 @@
-FROM node:12-stretch-slim
+FROM node:12.22-buster-slim
 
-ARG APP_HOME=/usr/src/app
-WORKDIR ${APP_HOME}
+RUN npm i npm@latest -g \
+    && npm install -g gulp
 
-COPY ./app/package.json ${APP_HOME}
-RUN npm ci && npm cache clean --force \
-    && npm install -g gulp \
-    && npm install gulp
-COPY . ${APP_HOME}
-RUN npm run build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    autoconf \
+    automake \
+    g++ \
+    libpng-dev \
+    make\
+    nasm \
+    -y wget \
+    && wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb \
+    && dpkg -i /tmp/libpng12.deb \
+    && rm /tmp/libpng12.deb
+
+WORKDIR /usr/src
+
+COPY ./app/package*.json ./
+RUN npm ci && npm run build
+
+WORKDIR /usr/src/app
+COPY . .
 
 FROM python:3.9.5-slim-buster
 

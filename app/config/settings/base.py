@@ -26,6 +26,7 @@ DJANGO_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # "django.contrib.humanize", # Handy template tags
@@ -34,16 +35,24 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "crispy_forms",
-    "crispy_tailwind",
+    "django_feather",
+    "widget_tweaks",
+    "simple_svg",
+    "slippers",
+    "imagekit",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "django_feather",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.linkedin",
+    "allauth.socialaccount.providers.apple",
 ]
 
 PROJECT_APPS = [
     "apps.users",
+    # Django Cleanup should always be placed last!
+    # https://github.com/un1t/django-cleanup#configuration
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -54,6 +63,8 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # WhiteNoise Middleware above all but below Security
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -96,14 +107,12 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "utils.context_processors.settings_context",
             ],
+            "builtins": ["slippers.templatetags.slippers"],
         },
     },
 ]
 
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
 
 
 # Database
@@ -129,15 +138,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 
@@ -168,6 +171,8 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+SVG_DIRS = [str(ROOT_DIR("dist/img/svg"))]
+
 
 # Media
 # ------------------------------------------------------------------------------
@@ -190,10 +195,43 @@ AUTHENTICATION_BACKENDS = (
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 # LOGOUT_REDIRECT_URL = "/accounts/login/"
-LOGIN_URL = "account_login"
+LOGIN_URL = "core:login"
+
+
+# Social Authentications
+# ------------------------------------------------------------------------------
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email",],
+        "AUTH_PARAMS": {"access_type": "online",},
+    },
+    "linkedin": {
+        "SCOPE": ["r_basicprofile", "r_emailaddress"],
+        "PROFILE_FIELDS": ["first-name", "last-name", "email-address",],
+    },
+    "apple": {
+        "APP": {
+            # Your service identifier.
+            "client_id": "your.service.id",
+            # The Key ID (visible in the "View Key Details" page).
+            "secret": "KEYID",
+            # Member ID/App ID Prefix -- you can find it below your name
+            # at the top right corner of the page, or it’s your App ID
+            # Prefix in your App ID.
+            "key": "MEMAPPIDPREFIX",
+            # The certificate you downloaded when generating the key.
+            "certificate_key": """-----BEGIN PRIVATE KEY-----
+s3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr
+3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3cr3ts3
+c3ts3cr3t
+-----END PRIVATE KEY-----
+""",
+        }
+    },
+}
 
 
 # LOGGING
@@ -269,16 +307,16 @@ X_FRAME_OPTIONS = "DENY"
 # Mail
 # ------------------------------------------------------------------------------
 EMAIL_BACKEND = config(
-    "EMAIL_BACKEND",
-    default="django.core.mail.backends.smtp.EmailBackend",
+    "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend",
 )
 EMAIL_TIMEOUT = 5
-EMAIL_USE_SSL = config("EMAIL_USE_SSL")
 EMAIL_HOST = config("EMAIL_HOST")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = config("EMAIL_PORT")
+EMAIL_FROM = "Webapp Team <noreply@sandboxfb43c6912c014ad48c35180321f3df03.mailgun.org>"
 
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
 # Admin
 # ------------------------------------------------------------------------------

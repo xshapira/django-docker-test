@@ -13,17 +13,22 @@ Django = "==3.2.3"
 gunicorn = "==20.0.4"
 pillow = "*"
 django-allauth = "*"
-django-crispy-forms = "*"
-crispy-tailwind = "*"
 django-feather = "*"
 argon2-cffi = "*"
 django-redis = "*"
 redis = "*"
 django-storages = "*"
-Collectfast = "*"
 python-decouple = "*"
 django-environ = "*"
-
+django-imagekit = "*"
+django-widget-tweaks = "*"
+django-cleanup = "*"
+django-simple-svg = "*"
+slippers = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

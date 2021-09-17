@@ -3,6 +3,7 @@ version: '3'
 volumes:
   local_postgres_data: {}
   local_postgres_data_backups: {}
+  notused:
 
 services:
   postgres:
@@ -40,7 +41,7 @@ services:
       - django
     volumes:
       - ./app/:/usr/src/app/
-      # - /usr/src/app/node_modules
-    command: npm run dev
+      - notused:/usr/src/app/node_modules/
+    command: bash -c "rm -rf /usr/src/app/node_modules/* && npm run dev"
     ports:
       - '3000:3000'
