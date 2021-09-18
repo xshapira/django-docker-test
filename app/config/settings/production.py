@@ -97,7 +97,8 @@ aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws
 # STATIC
 # ------------------------------------------------------------------------------
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATIC_URL = f"https://{aws_s3_domain}/static/"
+# STATIC_URL = f"https://{aws_s3_domain}/static/"
+WHITENOISE_STATIC_PREFIX = "/static/"
 STATICFILES_DIRS = [str(ROOT_DIR("config/static"))]  # noqa F405
 
 SVG_DIRS = [str(ROOT_DIR("config/static/img/svg"))]  # noqa F405
